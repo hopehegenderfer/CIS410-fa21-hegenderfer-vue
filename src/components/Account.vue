@@ -15,7 +15,7 @@
       <tbody>
         <tr v-for="thisReview in reviewsByUser" :key="thisReview.review">
           <th>
-            <router-link :to="`/movies/${thisReview.shoeFK}`">{{
+            <router-link :to="`/shoes/${thisReview.shoeFK}`">{{
               thisReview.shoeFK
             }}</router-link>
           </th>
