@@ -24,6 +24,7 @@
       </button></router-link
     >
     <br /><br />
+
     <router-view />
   </div>
 </template>

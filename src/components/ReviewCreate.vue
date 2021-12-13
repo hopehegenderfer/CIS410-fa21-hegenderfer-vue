@@ -5,13 +5,9 @@
         <div class="card">
           <div class="card-body">
             <h4>Create a Review</h4>
-            <form id="review-form">
+            <form id="review-form" @submit.prevent="submitReview">
               <div class="mb-3">
-                <label
-                  for="rating-input"
-                  class="form-label"
-                  @submit.prevent="submitReview"
-                  >Score</label
+                <label for="rating-input" class="form-label">Score</label
                 ><input
                   type="number"
                   class="form-control"
@@ -35,9 +31,16 @@
               </div>
               <button type="submit" class="btn btn-primary">
                 Submit Review</button
-              ><button type="clear" class="btn btn-outline-danger">
-                Cancel</button
-              ><!---->
+              ><button
+                v-on:click="cancelReview"
+                type="clear"
+                class="btn btn-outline-danger"
+              >
+                Cancel
+              </button>
+              <p v-if="errorMessage" class="form-text text-danger">
+                {{ errorMessage }}
+              </p>
             </form>
           </div>
         </div>
@@ -52,8 +55,8 @@ import axios from "axios";
 export default {
   data() {
     return {
-      rating: null,
-      summary: "",
+      score: null,
+      review: "",
       errorMessage: null,
     };
   },
@@ -71,7 +74,14 @@ export default {
         })
         .then(() => {
           this.$router.replace("/account");
+        })
+        .catch(() => {
+          this.errorMessage =
+            "Unable to create a review. Please try again later.";
         });
+    },
+    cancelReview() {
+      this.$router.go(-1);
     },
   },
 };
